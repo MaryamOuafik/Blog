@@ -20,7 +20,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import bloggy.services.UserDetailsServiceImpl;
+//import bloggy.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -28,24 +28,21 @@ public class WebSecurityConfig {
 	 
 //	@Autowired
 //	private BCryptPasswordEncoder passwordEncoder;
-	@Autowired
-	private UserDetailsServiceImpl userDetailServiceImpl ;
+//	@Autowired
+	//private UserDetailsServiceImpl userDetailServiceImpl ;
 
 //    @Bean
     //authentication
-    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
+ /*   public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
-    }
+    }*/
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    	http.formLogin();
         return http
             .authorizeHttpRequests((requests) -> requests
-            .requestMatchers("/", "/home", "/user").permitAll()
-            .anyRequest().authenticated()
+            .requestMatchers("/**").permitAll()
         )
-        .logout((logout) -> logout.permitAll()).userDetailsService(userDetailServiceImpl)
         .build();
     }
 
